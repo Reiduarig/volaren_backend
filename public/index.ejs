@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>   
+</head>
+<body>
+
+    <div id="chat-container">
+        <div id="chat-window">
+            <div id="output"></div>
+            <div id="actions"></div>
+        </div>
+        <input type="text" id="username" placeholder="Username">
+        <input type="text" id="message" placeholder="Mensaje">
+        <button id="sendMessage">Enviar</button>
+    </div>
+    <button id="prueba">Prueba</button>
+    <div id="datos"></div>
+
+
+
+    <h1>Hello world</h1>
+    <div id="container"></div>
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>Fecha</th>
+                <th>W</th>
+                <th>X</th>
+                <th>Y</th>
+                <th>Z</th>
+            </tr>
+            <td>
+                <%for (var result in rotations){%>
+                    <tr>
+                        <td><%=rotations[result].fecha%></td>
+                        <td><%=rotations[result].w%></td>
+                        <td><%=rotations[result].x%></td>
+                        <td><%=rotations[result].y%></td> 
+                        <td><%=rotations[result].z%></td>    
+                    </tr>    
+                <%}%>
+            </td>
+        </table>
+    </div>    
+    <button class="btn btn-primary" id="ver">Mostrar valores</button>
+
+    <div>
+        <p id="fecha"></p>
+        <p id="w"></p>
+        <p id="x"></p>
+        <p id="y"></p>
+        <p id="z"></p>
+    </div>
+
+      
+	
+    <script>
+        var boton = document.getElementById('ver');
+        var x = document.getElementById('w');
+        var x = document.getElementById('x');
+        var y = document.getElementById('y');
+        var z = document.getElementById('z');
+         
+        $("#ver").click(function(){
+           alert('pulsado')
+        });
+    </script>
+	<script src="/socket.io/socket.io.js" charset="utf-8"></script>   
+    <script src="chat.js" charset="utf-8"></script>  
+    </body>
+</html>

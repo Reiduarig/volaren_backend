@@ -1,0 +1,37 @@
+{
+  "name": "api-rest-node",
+  "version": "1.0.0",
+  "description": "Api Restful con NodeJs",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Quique Giraudier",
+  "license": "MIT",
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.0",
+    "amadeus": "^5.6.0",
+    "bcrypt": "^5.0.0",
+    "connect-multiparty": "^2.2.0",
+    "date-fns": "^2.16.1",
+    "dateformat": "^4.4.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
+    "express-validator": "^6.8.0",
+    "html-pdf": "^2.2.0",
+    "jquery": "^3.5.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "mysql2": "^2.2.5",
+    "randomstring": "^1.1.5",
+    "sharp": "^0.27.0",
+    "socket.io": "^2.3.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4"
+  }
+}
