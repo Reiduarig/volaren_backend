@@ -28,12 +28,12 @@ const updateFacturacion = async(req, res) => {
                         cod_postal = ?,
                         provincia = ?,
                         pais = ?,
-                        iban = ?,
-                        numero_cuenta = ?,
+                        fecha_caducidad = ?,
+                        numero_tarjeta = ?,
                         cod_seguridad = ? 
                         WHERE user_id = ?`;
 
-            let response = await db.performQuery(sql, [nombre, apellido1, apellido2, dni, telefono, direccion, ciudad, cod_postal, provincia, pais, iban, numero_cuenta, cod_seguridad, id]);              
+            let response = await db.performQuery(sql, [nombre, apellido1, apellido2, dni, telefono, direccion, ciudad, cod_postal, provincia, pais, fecha_caducidad, numero_tarjeta, cod_seguridad, id]);              
 
            console.log(sql)
         

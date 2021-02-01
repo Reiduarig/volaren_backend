@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-01-2021 a las 16:40:50
+-- Tiempo de generación: 01-02-2021 a las 11:02:59
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.4
 
@@ -68,8 +68,8 @@ CREATE TABLE `datos_facturacion` (
   `cod_postal` varchar(6) COLLATE utf8mb4_spanish_ci NOT NULL,
   `provincia` varchar(150) COLLATE utf8mb4_spanish_ci NOT NULL,
   `pais` varchar(150) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `iban` varchar(5) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `numero_cuenta` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `fecha_caducidad` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `numero_tarjeta` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
   `cod_seguridad` varchar(3) COLLATE utf8mb4_spanish_ci NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -213,7 +213,6 @@ ALTER TABLE `reserva`
   ADD KEY `usu_res_fk1` (`user_id`),
   ADD KEY `vue_res_fk2` (`vuelo_id`);
 
-
 --
 -- Indices de la tabla `usuario`
 --
@@ -295,8 +294,6 @@ ALTER TABLE `pasajeros_reserva`
 ALTER TABLE `reserva`
   ADD CONSTRAINT `usu_res_fk1` FOREIGN KEY (`user_id`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `vue_res_fk2` FOREIGN KEY (`vuelo_id`) REFERENCES `vuelo` (`id`) ON UPDATE CASCADE;
-
-
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
