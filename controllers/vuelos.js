@@ -6,8 +6,6 @@ const amadeus = new Amadeus({
     clientSecret: process.env.AMADEUS_CLIENT_SECRET
 })
 
-
-
 const db = require('../mysql')
 
 const {formatDateToDb} = require ('../helpers/helpers');
@@ -18,8 +16,6 @@ const getVuelos = async(req, res) => {
    
     const {origen, destino, fecha_salida, fecha_vuelta, directo, precio, idavuelta, n_personas} = req.body
 
-    //Formatear la fecha que recibimos para adaptarla al formato datetime del campo fecha en la bbdd
-  
     try{
     
         let sql = `SELECT *, DATE_FORMAT(v.fecha_salida, "%d-%m-%Y") as formato_fecha  
@@ -172,7 +168,6 @@ const getVuelosRecomendados = async(req, res) => {
     }
 }
 
-
 const getAeropuertos = (req, res) => {
     
     const {ciudad} = req.params;
@@ -208,7 +203,6 @@ const getAeropuertos = (req, res) => {
 
 }
 
-
 const getDestinosMasReservados = async(req, res) => {
 
    
@@ -231,7 +225,6 @@ const getDestinosMasReservados = async(req, res) => {
     });  */
 
 }
-
 
 const getHotels = async(req, res) =>{
     

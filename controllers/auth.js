@@ -112,10 +112,10 @@ const renovarToken = async(req, res) => {
 
   const token = await createToken(uid, name);
   
-  res.json({
-    ok: true,
-    token: token
-  });
+      res.json({
+        ok: true,
+        token: token
+      });
 
 };
 

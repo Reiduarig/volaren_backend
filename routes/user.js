@@ -39,9 +39,4 @@ router.delete('/:id',[
 router.post('/upload-image/:id',md_upload, userController.uploadImage);
 router.get('/image/:filename', userController.getImage);
 
-router.post('/upload-document/:id',md_upload_docs, userController.uploadDocument);
-router.get('/documents/:user', userController.getDocuments);
-router.get('/documents-image/:filename', userController.getImageDocument);
-router.delete('/documents/:id', userController.deleteDocument);
-
 module.exports = router;

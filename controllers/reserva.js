@@ -1,7 +1,7 @@
 require("dotenv").config();
 const db = require('../mysql');
-const fs = require('fs'); //librería de node para trabajar con el sistema de ficheros
-const path = require('path'); //librería path de node
+const fs = require('fs'); 
+const path = require('path'); 
 const { sendMail, createPDF } = require('../helpers/helpers');
 
 
@@ -315,16 +315,3 @@ module.exports = {
     getDocumentsByReserva,
     uploadDocuments
 }
-/*
-CREATE TABLE mytable (
-    id int(11) NOT NULL,
-    campo varchar(100) COLLATE utf8mb4_spanish2_ci NOT NULL,
-    created timestamp NOT NULL DEFAULT current_timestamp(),
-    updated timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-  ) 
-  
-
-    INSERT INTO mytable(id, campo) VALUES (1, 'primer valor')
-    UPDATE mytable SET campo = " nuevo valor" WHERE id = 1     
-
-    */

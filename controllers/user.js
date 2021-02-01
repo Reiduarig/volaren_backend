@@ -201,28 +201,7 @@ const path = require('path'); //librería path de node
     }    
  }	
  
- const uploadImageHackaboss= async(req, res) => {
-
-
-    console.log(req.files)
-    //Crear el directorio
-    await fs.mkdir(`${process.env.UPLOADS_DIR/users/docs}`, {recursive:true})
-    
-
-    try{
-        //asignar un id unico al archivo que se va a crear
-        const fileId = uuid.v4();
-        const directorioImages = `${process.env.UPLOADS_DIR}/users/docs/${fileId}`;
-       
-        await fs.writeFile(req.files.imagen.name, req.files.imagen.data)
-       
-        res.send();
-    }catch(e){
-        console.log('Error '. e);
-        res.status(500).send()
-    }
-
- }
+ 
  const uploadImage = async(req, res) => {
 		
     //configurar el modulo multiparty en routes/user.js
@@ -300,7 +279,7 @@ const path = require('path'); //librería path de node
         });
     }
 }
-
+/*
 const uploadDocument = async(req, res) => {
 
     //configurar el modulo multiparty en routes/user.js
@@ -469,10 +448,5 @@ module.exports = {
     getDatosAll,
     deleteUser,
     getImage,
-    uploadImage,
-    uploadDocument,
-    getDocuments,
-    getImageDocument,
-    deleteDocument,
-    uploadImageHackaboss
+    uploadImage
 };

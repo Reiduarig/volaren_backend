@@ -6,9 +6,9 @@ const envioEmail = async(req, res) =>{
 
 
     //validación de los parámetros recibidos
-   /* let valida = validateEmail(email, asunto, contenido);
+    let valida = validateEmail(email, asunto, contenido);
     
-    if( valida ){*/
+    if( valida ){
 
         try{
 
@@ -32,12 +32,12 @@ const envioEmail = async(req, res) =>{
             })
         }
 
-    /*}else{
+    }else{
         res.status(400).send({
             ok: false,
             message: 'Datos enviados incorrectos'
         });
-    }     */
+    }     
 }
 
 module.exports = { envioEmail };

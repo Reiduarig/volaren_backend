@@ -126,21 +126,6 @@ CREATE TABLE `reserva` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `user_docs`
---
-
-CREATE TABLE `user_docs` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `user_id` int(11) UNSIGNED NOT NULL,
-  `descripcion` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `url` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
-  `nombre` varchar(150) COLLATE utf8mb4_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -228,12 +213,6 @@ ALTER TABLE `reserva`
   ADD KEY `usu_res_fk1` (`user_id`),
   ADD KEY `vue_res_fk2` (`vuelo_id`);
 
---
--- Indices de la tabla `user_docs`
---
-ALTER TABLE `user_docs`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `usu_docs_fk1` (`user_id`);
 
 --
 -- Indices de la tabla `usuario`
@@ -277,12 +256,6 @@ ALTER TABLE `reserva`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `user_docs`
---
-ALTER TABLE `user_docs`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -323,11 +296,7 @@ ALTER TABLE `reserva`
   ADD CONSTRAINT `usu_res_fk1` FOREIGN KEY (`user_id`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `vue_res_fk2` FOREIGN KEY (`vuelo_id`) REFERENCES `vuelo` (`id`) ON UPDATE CASCADE;
 
---
--- Filtros para la tabla `user_docs`
---
-ALTER TABLE `user_docs`
-  ADD CONSTRAINT `usu_docs_fk1` FOREIGN KEY (`user_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

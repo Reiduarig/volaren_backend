@@ -7,7 +7,6 @@ const updateFacturacion = async(req, res) => {
     const id = req.params.id
     const {nombre, apellido1, apellido2, dni, telefono, direccion, ciudad, cod_postal, provincia, pais, iban, numero_cuenta, cod_seguridad} = req.body;
  
-
     try{
         
         const sql = `SELECT * FROM datos_facturacion WHERE user_id = ?`;
