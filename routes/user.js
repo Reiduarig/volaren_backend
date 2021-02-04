@@ -9,7 +9,6 @@ const multipart = require('connect-multiparty');
 
 //middleware 
 let md_upload = multipart({ uploadDir: './uploads/users' }); //ruta donde se van a guardar todas las imagenes de los usuarios
-let md_upload_docs = multipart({ uploadDir: './uploads/users/docs' });
 const { validarCampos } = require("../middlewares/validation");
 /* -----------  Rutas ----------------------*/
 //User

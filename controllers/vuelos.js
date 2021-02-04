@@ -6,7 +6,9 @@ const amadeus = new Amadeus({
     clientSecret: process.env.AMADEUS_CLIENT_SECRET
 })
 
-const db = require('../mysql')
+const db = require('../mysql');
+const fs = require('fs').promises; //librería de node para trabajar con el sistema de ficheros
+const path = require('path'); 
 
 const {formatDateToDb} = require ('../helpers/helpers');
 
@@ -226,6 +228,28 @@ const getDestinosMasReservados = async(req, res) => {
 
 }
 
+const getImage = async(req, res) => {
+
+    const { filename } = req.params;
+        
+    const file_path = `./uploads/logos/${filename}`;
+
+    try{
+
+        const existe = await fs.stat(file_path);
+            
+        return res.sendFile(path.resolve(file_path));
+     
+    }catch(e){
+        console.log(e)
+        return res.status(404).send({
+            ok: false,
+            message: 'La imagen no existe'
+        });
+    }
+
+}
+
 const getHotels = async(req, res) =>{
     
     let response = await amadeus.shopping.hotelOffers.get({
@@ -243,6 +267,7 @@ module.exports = {
     getVuelosRecomendados,
     getAeropuertos,
     getDestinosMasReservados,
+    getImage,
     getHotels
 }
 

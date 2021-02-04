@@ -17,8 +17,8 @@ router.put('/:id',[
     check("cod_postal", "Cod postal requerida").not().isEmpty(),
     check("provincia", "Provincia requerida").not().isEmpty(),
     check("pais", "Pais requerido").not().isEmpty(),
-    check("iban", "Iban requerido").not().isEmpty(),
-    check("numero_cuenta", "Número de cuenta requerido").not().isEmpty(),
+    check("fecha_caducidad", "Fecha de caducidad requerida").not().isEmpty(),
+    check("numero_tarjeta", "Número de tarjeta requerida").not().isEmpty(),
     check("cod_seguridad", "Código seguridad requerido").not().isEmpty(),
     validarCampos
 ], facturacionController.updateFacturacion);    

@@ -43,6 +43,7 @@ class Server {
         this.app.use('/api/vuelos', require('./routes/vuelos') );
         this.app.use('/api/reserva', require('./routes/reserva') );
         this.app.use('/api/email', require('./routes/email') );
+        this.app.use('/api/posts', require('./routes/blog') );
 
     }
 
@@ -63,13 +64,3 @@ class Server {
 
 module.exports = Server;
 
-
-//ejemplo de middleware propio para la comprobación de envio de la api key suministrada por nosotros
-        //para controlar el acceso de la peticiones de los usuarios
-       /*this.app.use((req, res, next) => {
-            if(!req.query.key || req.query.key !== '9999999999'){
-                res.status(401).send('api key error');
-                return;
-            }
-            next();
-        })*/
