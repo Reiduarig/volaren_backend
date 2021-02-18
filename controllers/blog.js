@@ -10,7 +10,7 @@ const path = require('path'); //librería path de node
 
     try{
 
-        let sql = 'SELECT * FROM posts ORDER BY fecha DESC';
+        let sql = 'SELECT p.*, u.username FROM posts p, usuario u WHERE u.id = p.user_id ORDER BY fecha DESC';
 
     
         let response = await db.performQuery(sql);
@@ -266,7 +266,7 @@ const createPost = async(req, res) => {
             }
 
             return res.status(200).send({
-                            status: true,
+                            ok: true,
                             message: 'Post eliminado',
                             deletedPost: id
                     });

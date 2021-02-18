@@ -5,18 +5,17 @@ const db = require('../mysql')
 const updateFacturacion = async(req, res) => {
 
     const id = req.params.id
-    const {nombre, apellido1, apellido2, dni, telefono, direccion, ciudad, cod_postal, provincia, pais, iban, numero_cuenta, cod_seguridad} = req.body;
- 
+    const { nombre, apellido1, apellido2, dni, telefono, direccion, ciudad, cod_postal, provincia, pais, fecha_caducidad, numero_tarjeta, cod_seguridad} = req.body;
+        
     try{
         
-        const sql = `SELECT * FROM datos_facturacion WHERE user_id = ?`;
-
+        const sql = `SELECT count(*) as existenDatos FROM datos_facturacion WHERE user_id = ?`;
+       
         const response = await db.performQuery(sql,[id]);
+        const actualizar = response[0].existenDatos;
 
-        //console.log(response)
-
-        if(response.length > 0){
-        
+       if(actualizar !== 0){
+           
             const sql = `UPDATE datos_facturacion 
                         SET nombre = ?,
                         apellido1 = ?,
@@ -48,14 +47,14 @@ const updateFacturacion = async(req, res) => {
                 ok: true,
                 message:"Datos de facturación actualizados"
             })
-        }
-/*
+        
+
         }else{
                 const sql2 = `INSERT INTO datos_facturacion  (nombre, apellido1, apellido2, dni, telefono, direccion, ciudad ,
-                                                            cod_postal, provincia, pais, iban, numero_cuenta, cod_seguridad, user_id)
+                                                            cod_postal, provincia, pais, fecha_caducidad, numero_tarjeta, cod_seguridad, user_id)
                                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?)`;
 
-                let response = await db.performQuery(sql2, [nombre, apellido1, apellido2, dni, telefono, direccion, ciudad, cod_postal, provincia, pais, iban, numero_cuenta, cod_seguridad, user_id]);              
+                let response = await db.performQuery(sql2, [nombre, apellido1, apellido2, dni, telefono, direccion, ciudad, cod_postal, provincia, pais, fecha_caducidad, numero_tarjeta, cod_seguridad, id]);              
 
                 console.log(sql2)
 
@@ -70,16 +69,11 @@ const updateFacturacion = async(req, res) => {
                     ok: true,
                     message:"Datos de facturación registrados"
                 })
-        }*/
+        }
 
     }catch(e){
         console.log(e);
-        return res.status(500).send({
-            ok: false,
-            message: 'Error interno del servidor',
-            error: e.message
-        });
-    }    
+    }   
 
 }
 

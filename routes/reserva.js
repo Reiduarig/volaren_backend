@@ -23,6 +23,10 @@ router.post('/create',  [
     check("n_personas", "Personas requerido").not().isEmpty(),
     check("n_maletas", "Maletas requerida").not().isEmpty(),
     check("precio", "Precio requerido").not().isEmpty(),
+    check("seguro_viaje", "Seguro requerido").not().isEmpty(),
+    check("datos_contacto", "Datos de contacto requeridos").not().isEmpty(),
+    check("datos_pasajeros", "Datos de pasajeros requeridos").not().isEmpty(),
+    check("tarifa", "Tarifa de reserva requerida").not().isEmpty(),
     validarCampos
   ], reservaController.create );
 

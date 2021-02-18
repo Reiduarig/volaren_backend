@@ -65,7 +65,7 @@ const getReservaById = async(req, res) => {
         let sql = `SELECT * FROM vuelo v, reserva r, pasajeros_reserva pr
                            WHERE v.id = r.vuelo_id
                            AND pr.reserva_id = r.id 
-                           AND r.id = ?`;
+                           AND r.id = ? ORDER BY r.fecha ASC`;
 
         let response = await db.performQuery(sql, [id]);
 
@@ -85,10 +85,10 @@ const getReservaById = async(req, res) => {
 
 const create = async(req, res) => {
 
-   
-    const { user_id, vuelo_id, n_personas, n_maletas, precio, seguro_equipaje, datos_contacto, datos_pasajeros, alquiler, transporte } = req.body;
+   console.log(req.body);
+    const { user_id, vuelo_id, n_personas, n_maletas, precio, seguro_viaje, transporte, datos_contacto, datos_pasajeros, tarifa } = req.body;
 
-   if(!user_id || !vuelo_id || !n_personas || !n_maletas || !precio ||!datos_contacto || !datos_pasajeros || !alquiler || !transporte) {
+   if(!user_id || !vuelo_id || !n_personas || !precio || !datos_contacto || !datos_pasajeros || !tarifa) {
         return res.status(400).send({
             ok: false,
             message: 'Faltan datos por recibir'
@@ -97,11 +97,10 @@ const create = async(req, res) => {
 
     try{
 
-        const { email, telefono } = datos_contacto;
+        const {contacto_email, contacto_telefono } = datos_contacto;
 
-        let sql = 'INSERT INTO reserva (user_id, vuelo_id, n_pasajeros, n_maletas, precio_total, contacto_email, contacto_telefono, seguro_equipaje, alquiler, transporte) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ? )';
-
-        let response = await db.performQuery(sql, [user_id, vuelo_id, n_personas, n_maletas, precio, email, telefono, seguro_equipaje, alquiler, transporte]);
+        let sql = 'INSERT INTO reserva (user_id, vuelo_id, n_pasajeros, n_maletas, precio_total, seguro_viaje, transporte, contacto_email, contacto_telefono, tarifa) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ? )';
+        let response = await db.performQuery(sql, [user_id, vuelo_id, n_personas, n_maletas, precio, seguro_viaje, transporte, contacto_email, contacto_telefono, tarifa]);
             
         if (!response) {
             
@@ -119,7 +118,7 @@ const create = async(req, res) => {
         //insertamos los datos de los pasajeros de la reserva en la tabla dependiente
         const { nombre, apellido1, apellido2 } = datos_pasajeros;
 
-        let sql2 = 'INSERT INTO pasajeros_reserva (nombre, apellido1, apellido2, reserva_id) values (?,?,?,?,?)';
+        let sql2 = 'INSERT INTO pasajeros_reserva (nombre, apellido1, apellido2, reserva_id) values (?,?,?,?)';
 
         let response2 = await db.performQuery(sql2,[nombre, apellido1, apellido2, idReserva]);
 
@@ -131,9 +130,22 @@ const create = async(req, res) => {
             });
         }
 
-        let responsePdf = await createPDF(idReserva);
+        try{
+            let respuestaPdfReserva = await createPDF(idReserva, 'Reserva');
+            console.log(respuestaPdfReserva)
+        }catch(e){
+            console.log(e);
+        }
+
+        if(transporte !== 0){
+            try{
+                let respuestaPdfTransporte =  await createPDF(idReserva, 'Transporte')
+                console.log(respuestaPdfTransporte);
+            }catch(e){
+                console.log(e)
+            }
        
-    
+        }
 
         try{
            await sendMail('quique@reiduarig.com', 'Reserva registrada','Se ha realizado la reserva correctamente');

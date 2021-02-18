@@ -89,6 +89,7 @@ const login = async(req, res) => {
             message: "Login correcto",
             id: user[0].id,
             name: user[0].username,
+            email: user[0].email,
             image:user[0].imagen,
             token: token
         });

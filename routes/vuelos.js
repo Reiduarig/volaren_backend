@@ -18,6 +18,7 @@ router.post('/',[
     check("n_personas", "N_pasajeros requerido").not().isEmpty(),
     check("idavuelta", "Campo vuelta requerido").not().isEmpty(),
     check("precio", "Campo precio requerido").not().isEmpty(),
+    check("filtro", "Campo filtro requerido").not().isEmpty(),
     validarCampos
   ], vuelosController.getVuelos);
 router.get('/:id',[

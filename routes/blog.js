@@ -51,7 +51,7 @@ router.put(
 router.delete(
   "/:id",
   [check("id", "Id de post requerida").not().isEmpty()],
-  blogController.getPostsBySearch
+  blogController.deletePost
 );
 
 router.get(

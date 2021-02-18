@@ -6,6 +6,9 @@ const fileUpload = require('express-fileupload');
 const router = express.Router();
 const { check } = require("express-validator");
 const multipart = require('connect-multiparty');
+const multer  = require('multer')
+const upload = multer()
+
 
 //middleware 
 let md_upload = multipart({ uploadDir: './uploads/users' }); //ruta donde se van a guardar todas las imagenes de los usuarios
@@ -23,10 +26,10 @@ router.get('/all/:id',[
     ], userController.getDatosAll);
 router.put('/:id',[
     check("id", "Id requerido").not().isEmpty(),
-    check("username", "Username requerido").not().isEmpty(),
-    check("email", "Email requerido").not().isEmpty(),
+   // check("username", "Username requerido").not().isEmpty(),
+   // check("email", "Email requerido").not().isEmpty(),
     validarCampos
-    ],md_upload, userController.update);
+    ],upload.single('avatar'), userController.update);
 router.delete('/:id',[
     check("id", "Id requerido").not().isEmpty(),
     validarCampos

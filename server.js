@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const http = require('http');
-
+const cors = require('cors');
 const morgan = require('morgan');
 //traduce los parametros enviados en el body y lo expone en el objeto req.body
 const bodyParser = require('body-parser');
@@ -26,13 +26,7 @@ class Server {
         this.app.use(morgan('dev'));
 
         //CORS
-        this.app.use((req, res, next) => {
-            res.header('Access-Control-Allow-Origin', '*');
-            res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-            res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-            res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-            next();
-        });
+        this.app.use(cors());
     }
 
     routes() {

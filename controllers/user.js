@@ -94,6 +94,7 @@ const path = require('path'); //librería path de node
  const getDatosAll = async(req, res, next) => {
 
     try{
+        console.log(req.params)
     
         const { id } = req.params;
         
@@ -134,10 +135,11 @@ const path = require('path'); //librería path de node
 
  const update = async(req, res) => {
 
-   
-        const id = req.params.id;
-        const { username, email } = req.body;
        
+        const id = req.params.id;
+        const username = req.body.username;
+        const email = req.body.email;
+        
 
         try{
             let sql = "update usuario set username = ? , email = ? WHERE id = ?";
@@ -151,11 +153,29 @@ const path = require('path'); //librería path de node
                 });
             
             }else{
-                
+
+               let imagen= null;
+
+                if(req.file){
+                    
+                    await uploadImage(req.file, id).then(
+                        res => {
+                            req.body.avatar = res}
+
+                    )      
+                    
+                }
+
                     return res.status(200).send({
                         ok: true,
                         message: 'Usuario actualizado',
+                        user: req.body,
+
                     });
+                
+                
+                
+                
                 
             }
         }catch(e){
@@ -175,7 +195,7 @@ const path = require('path'); //librería path de node
     try{
 	
         const { id } = req.params;
-        //find y delete
+       
         const sql = "DELETE FROM usuario WHERE id = ?";
 
         let response = await db.performQuery(sql,id)
@@ -202,68 +222,30 @@ const path = require('path'); //librería path de node
  }	
  
  
- const uploadImage = async(req, res) => {
-		
-    //configurar el modulo multiparty en routes/user.js
-    //recoger el fichero de la petición
-    
-    const id = req.params.id;
+ const uploadImage = async(file, id) => {
+	
    
     let filename = 'Imagen no subida';
     
-    if(!req.files){
-        return res.send({
-            status: 'error',
-            message: 'No llegan archivos'
-        });
-    }
    
-    //conseguir el nombre y la extension del archivo
-    let file_path = req.files.file0.path;  //ruta
-   
-   
-    let file_split = file_path.split('\\'); //separar los segmentos de la ruta
-    filename = file_split[2]; //nombre
-    let ext_split = filename.split('.'); //extraer la extension
-    let ext_file = ext_split[1];
+    filename = file.originalname; //nombre
     
-    //comprobar la extension, si no es válida, borrar el fichero subido
-    if(ext_file != 'png' && ext_file != 'jpg' && ext_file != 'jpeg' && ext_file != 'gif'){
-        fs.unlink(file_path,(err)=>{ 
-            return res.status(200).send({
-                status: 'error',
-                message: 'La extensión del archivo no es válida'
-            });
-        
-        }); 
-    }else{
+    await fs.writeFile(path.join('uploads/users/docs', file.originalname), file.buffer)
        
         //actualizar el objeto usuario
         let sql = 'UPDATE usuario SET imagen = ? WHERE id = ?';
 
-        let respuesta = await db.performQuery(sql, [filename, id]);
+        await db.performQuery(sql, [filename, id]);
 
-        if(respuesta){
-            res.send({
-                ok: true,
-                message: 'Imagen subida'
-            })
-        }
-        else{
-            res.send({
-                ok: false,
-                message: 'Error al subir la imagen'
-            })
-        }
-
-    }
+        return file.originalname;
+      
 }
-    //metodo para obtener una imagen
+   
  const getImage = async(req, res) => {
         
     const { filename } = req.params;
         
-    const file_path = `./uploads/users/${filename}`;
+    const file_path = `./uploads/users/docs/${filename}`;
 
     try{
 

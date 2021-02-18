@@ -16,7 +16,7 @@ const getVuelos = async(req, res) => {
 
     console.log(req.body)
    
-    const {origen, destino, fecha_salida, fecha_vuelta, directo, precio, idavuelta, n_personas} = req.body
+    const {origen, destino, fecha_salida, fecha_vuelta, directo, precio, idavuelta, clase, n_personas, filtro} = req.body
 
     try{
     
@@ -35,17 +35,20 @@ const getVuelos = async(req, res) => {
                         let nuevaFecha = formatDateToDb(fecha_vuelta);
                         sql += ` AND v.fecha_vuelta = '${nuevaFecha}'`;
                     }
-                    if(directo === "s"){
+                    if(directo){
                         sql += ` AND v.escalas = 0`;  
+                    }
+                    if(clase){
+                        sql += ` AND v.clase = "${clase}"`;  
                     }
                     if(precio){
                         sql += ` AND v.precio <= ${precio}`;
                     }
-                    if(idavuelta === "s"){
-                        sql += ` AND v.vuelta IS NOT NULL`;
+                    if(idavuelta){
+                        sql += ` AND v.vuelta = 'n'`;
                     }
 
-                   sql += ` ORDER BY v.precio ASC`;
+                   sql += ` ORDER BY v.${filtro} ASC`;
 
                    console.log(sql)
           
@@ -230,7 +233,10 @@ const getDestinosMasReservados = async(req, res) => {
 
 const getImage = async(req, res) => {
 
+
     const { filename } = req.params;
+
+    console.log(filename)
         
     const file_path = `./uploads/logos/${filename}`;
 
